@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#d74236">
+  <meta name="description" content="Snelle lichtcheck voor foto en video met de camera van je toestel.">
+  <title>Camera Exposure Coach</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Lichtmeter</p>
+      <h1>Camera Exposure Coach</h1>
+      <p class="subtitle">Snelle lichtcheck voor foto en video</p>
+    </div>
+    <span id="connectionStatus" class="status-badge" aria-live="polite">Online</span>
+  </header>
+
+  <main class="app-shell">
+    <section class="camera-card" aria-labelledby="cameraTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="cameraTitle">Camera preview</h2>
+          <p>Richt je camera op de scene en meet de belichting.</p>
+        </div>
+        <span id="cameraState" class="camera-state">Camera niet actief</span>
+      </div>
+
+      <div class="preview-frame">
+        <video id="cameraPreview" autoplay playsinline muted aria-label="Live camerabeeld"></video>
+        <div id="previewPlaceholder" class="preview-placeholder">
+          <span>Start de camera voor een live lichtcheck</span>
+        </div>
+      </div>
+
+      <div class="button-grid" aria-label="Camera acties">
+        <button id="startCamera" type="button">Start camera</button>
+        <button id="measureExposure" type="button" class="primary">Meet belichting</button>
+        <button id="stopCamera" type="button">Stop camera</button>
+        <button id="saveMeasurement" type="button">Bewaar meting</button>
+        <button id="testNotification" type="button">Test notificatie</button>
+      </div>
+
+      <p id="appMessage" class="message" role="status" aria-live="polite"></p>
+      <canvas id="analysisCanvas" hidden></canvas>
+    </section>
+
+    <section class="result-card state-idle" id="resultCard" aria-labelledby="resultTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="resultTitle">Resultaat</h2>
+          <p>Laatste analyse van het camerabeeld.</p>
+        </div>
+      </div>
+
+      <dl class="result-list">
+        <div>
+          <dt>Belichtingsstatus</dt>
+          <dd id="exposureStatus">Camera niet actief</dd>
+        </div>
+        <div>
+          <dt>Helderheid</dt>
+          <dd id="brightnessValue">0%</dd>
+        </div>
+        <div>
+          <dt>Contrastindicatie</dt>
+          <dd id="contrastValue">Nog geen meting</dd>
+        </div>
+        <div>
+          <dt>Tip</dt>
+          <dd id="exposureTip">Start de camera en meet de belichting.</dd>
+        </div>
+        <div>
+          <dt>Laatste meting</dt>
+          <dd id="measurementTime">-</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="checklist-card" aria-labelledby="checklistTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="checklistTitle">Shoot-checklist</h2>
+        </div>
+      </div>
+
+      <form id="shootChecklist" class="checklist">
+        <label><input type="checkbox" name="lens"> Lens schoon</label>
+        <label><input type="checkbox" name="battery"> Batterij voldoende opgeladen</label>
+        <label><input type="checkbox" name="card"> Geheugenkaart aanwezig</label>
+        <label><input type="checkbox" name="whiteBalance"> Witbalans gecontroleerd</label>
+        <label><input type="checkbox" name="exposure"> Belichting gecontroleerd</label>
+        <label><input type="checkbox" name="testShot"> Testshot gemaakt</label>
+      </form>
+    </section>
+
+    <section class="saved-card" aria-labelledby="savedTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="savedTitle">Laatste opgeslagen meting</h2>
+        </div>
+      </div>
+
+      <div id="savedMeasurement" class="saved-measurement">
+        Nog geen meting opgeslagen.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Kiara Vandewalle - Web Apps AO - Project</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
